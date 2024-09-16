@@ -1,36 +1,27 @@
-
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
-#include <stdlib.h>
+
+int isPrime(long long n) {
+    if (n <= 1) return 0;
+    if (n <= 3) return 1;
+    if (n % 2 == 0 || n % 3 == 0) return 0;
+    
+    long long i;
+    for (i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return 0;
+    }
+    return 1;
+}
 
 int main() {
-    // Write C code here
-    int input;
-    int value = 0;
-    int flag = 0;
-
-    printf("Masukkan Angka : \n");
-    scanf("%d",&input);
-
-    value = input/2;
-
-    if (input == 1){
-        printf("BUKAN PRIMA");
+    long long num;
+    scanf("%lld", &num);
+    
+    if (isPrime(num)) {
+        printf("PRIMA\n");
+    } else {
+        printf("BUKAN\n");
     }
-    else {
-        for ( int i=2 ; i<=value ; i++) {
-            if ( input % i == 0 ) {
-                printf("BUKAN PRIMA");
-                flag=1;
-                break;
-            }
-        }
-
-        if( flag == 0 ) {
-            printf("PRIMA");
-        }
-    }
-
+    
     return 0;
 }

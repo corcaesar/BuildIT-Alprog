@@ -1,34 +1,34 @@
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
-#include <stdlib.h>
+
+#define MAX_LENGTH 101 
 
 int main() {
-    char input1[100];
-    char input2[100];
-    int input1Length;
-    int input2Length;
-    int value;
-
-    printf("MASUKKAN INPUT 1 : \n");
-    scanf("%s", input1);
-    printf("MASUKKAN INPUT 2 : \n");
-    scanf("%s", input2);
-
-    input1Length = strlen(input1);
-    input2Length = strlen(input2);
-
-    value=strcmp(input1,input2);
-
-    if (value==0) {
-        printf("IDENTIK");
+    char str1[MAX_LENGTH], str2[MAX_LENGTH];
+    
+    scanf("%s", str1);
+    scanf("%s", str2);
+    
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+    
+    if (len1 != len2) {
+        printf("BERBEDA\n");
+    } else {
+        int identical = 1;
+        for (int i = 0; i < len1; i++) {
+            if (str1[i] != str2[i]) {
+                identical = 0;
+                break;
+            }
+        }
+        
+        if (identical) {
+            printf("IDENTIK\n");
+        } else {
+            printf("MIRIP\n");
+        }
     }
-    else if(value!=0 && input1Length==input2Length){
-        printf("MIRIP");
-    }
-    else {
-          printf("BERBEDA");
-    }
-
+    
     return 0;
 }

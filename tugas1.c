@@ -1,38 +1,49 @@
 #include <stdio.h>
 
-// Fungsi untuk mengurutkan array menggunakan insertion sort
-void insertionSort(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
-        
-        // Pindahkan elemen arr[0..i-1], yang lebih besar dari key,
-        // ke satu posisi di depan posisi saat ini
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+#define MAX_N 10000
+
+void swap(int* a, int* b) {
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
         }
-        arr[j + 1] = key;
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
     }
 }
 
 int main() {
-    int N;
-    printf("Masukkan jumlah nilai: ");
-    scanf("%d", &N);  // Input jumlah nilai
-
-    int nilai[N];
-    printf("Masukkan nilai-nilai:\n");
+    int N, nilai[MAX_N];
+    
+    scanf("%d", &N);
+    
     for (int i = 0; i < N; i++) {
-        scanf("%d", &nilai[i]);  // Input nilai
+        scanf("%d", &nilai[i]);
     }
-
-    insertionSort(nilai, N);  // Urutkan nilai
-
-    printf("Nilai setelah diurutkan:\n");
+    
+    quickSort(nilai, 0, N - 1);
+    
     for (int i = 0; i < N; i++) {
-        printf("%d\n", nilai[i]);  // Output nilai terurut
+        printf("%d\n", nilai[i]);
     }
-
+    
     return 0;
 }
